@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "333799948342",
+    "firebase_url": "https://appzalo-d587e-default-rtdb.firebaseio.com",
+    "project_id": "appzalo-d587e",
+    "storage_bucket": "appzalo-d587e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333799948342:android:2b43f797175b4c20eb9897",
+        "android_client_info": {
+          "package_name": "hcmute.edu.vn.app_zalo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333799948342-r023mbvuilsfqoh26l6lke25ec4g1gpe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeutL9N6wN8_LLl_OK-98KO6ewSWy0mWw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333799948342-r023mbvuilsfqoh26l6lke25ec4g1gpe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

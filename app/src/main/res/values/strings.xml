@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">App_Zalo</string>
+    <string name="bio">Bio</string>
+    <string name="dateofbirth">Date of birth</string>
+    <string name="phone">Phone</string>
+    <string name="sign_up_last_name">Last Name</string>
+    <string name="sign_up_first_name">First Name</string>
+    <string name="register_text">Register</string>
+</resources>
