@@ -79,6 +79,7 @@ public class PeopleFragment extends Fragment {
             protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull UserModel model) {
                  if(!adapter.getRef(position).getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
                  {
+                     //Hide yourself
                      ColorGenerator generator = ColorGenerator.MATERIAL;
                      int color = generator.getColor(FirebaseAuth.getInstance().getCurrentUser().getUid());
                      TextDrawable.IBuilder builder = TextDrawable.builder()
