@@ -13,6 +13,8 @@ android {
         versionCode 1
         versionName "1.0"
 
+//        multiDexEnabled true
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -44,6 +46,9 @@ dependencies {
     //ButterKnife
     implementation 'com.jakewharton:butterknife:10.2.3'
     implementation 'com.google.firebase:firebase-database:20.0.5'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 
     //Dexter
@@ -63,4 +68,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+//    //Multi Dex
+//    implementation 'com.android.support:multidex:1.0.3 '
 }
