@@ -18,6 +18,7 @@ import hcmute.edu.vn.app_zalo.Adapter.MyViewPagerAdapter;
 
 public class HomeActivity extends AppCompatActivity {
 
+    //Tạo các biến gán theo view
     @BindView(R.id.tabDots)
     TabLayout tabLayout;
     @BindView(R.id.view_pager)
@@ -28,12 +29,12 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        init();
-        setupViewPager();
+        init();//Hàm dùng layout
+        setupViewPager();//Hàm dùng ViewPager
     }
 
     private void setupViewPager() {
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(2);//Giới hạn Page
         viewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(), new Lifecycle() {
             @Override
             public void addObserver(@NonNull LifecycleObserver observer) {
@@ -52,15 +53,15 @@ public class HomeActivity extends AppCompatActivity {
             }
         }));
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-           if(position == 0)
-               tab.setText("chat");
-           else
-               tab.setText("People");
+           if(position == 0)//Trang đầu
+               tab.setText("chat");//Fragment chat
+           else // Trang kế
+               tab.setText("People");//Fragment People
 
         }).attach();
     }
 
     private void init(){
-        ButterKnife.bind(this);
+        ButterKnife.bind(this);//Sử dụng layout activity_home
     }
 }

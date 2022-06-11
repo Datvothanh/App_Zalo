@@ -40,12 +40,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+        //Khởi tạo xác thực điện thoại
         super.onStart();
-        firebaseAuth.addAuthStateListener(listener);
+        firebaseAuth.addAuthStateListener(listener); //Cập nhật xác thực theo địa điểm người dùng
     }
 
     @Override
     protected void onStop() {
+        //Ngừng xác thực
         super.onStop();
         if(firebaseAuth != null && listener != null)
             firebaseAuth.removeAuthStateListener(listener);
@@ -55,18 +57,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        init();
+        init();//Hàm đăng nhập
     }
 
     private void init(){
+        //Tạo mới một quy trình đăng nhập
         providers = Arrays.asList(
                 new AuthUI.IdpConfig.PhoneBuilder().build()
         );
         firebaseAuth = FirebaseAuth.getInstance();
 
         database = FirebaseDatabase.getInstance();
-        userRef = database.getReference(Common.USER_REFERENCES);
+        userRef = database.getReference(Common.USER_REFERENCES);//Biến dử liệu trong People
 
+        //Yêu cầu kết nối các tính năng của điện thoại
         listener=myFirebaseAuth->{
             Dexter.withContext(this)
                     .withPermissions(Arrays.asList(
@@ -76,19 +80,24 @@ public class MainActivity extends AppCompatActivity {
                             Manifest.permission.ACCESS_COARSE_LOCATION,
                             Manifest.permission.ACCESS_FINE_LOCATION
                     )).withListener(new MultiplePermissionsListener() {
+
                 @Override
                 public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
-                    if(multiplePermissionsReport.areAllPermissionsGranted())
+                    //Kiểm tra xem đã cho truy cập các chức năng chưa
+                    if(multiplePermissionsReport.areAllPermissionsGranted())//Cho truy cập rồi thì xét xem số điện thoại đó có thật không
                     {
                         FirebaseUser user=myFirebaseAuth.getCurrentUser();
                         if(user!=null)
                         {
+                            //Có thật thì kiểm tra xem số điện thoại này có thông tin User chưa
                             checkUserFromFirebase();
                         }
                         else
+                            //Không có thật thì quay lại trang nhập số điện thoại
                             showLoginLayout();
                     }
                     else
+                        //Chưa thì thông báo phải chấp nhận
                         Toast.makeText(MainActivity.this, "Plese enable all permission", Toast.LENGTH_SHORT).show();
                 }
 
@@ -100,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    private void showLoginLayout() {
+    private void showLoginLayout() {//Show lại trang đăng nhập
         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
                 .setIsSmartLockEnabled(false)
                 .setTheme(R.style.LoginTheme)
@@ -112,14 +121,15 @@ public class MainActivity extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists())
+                        if(snapshot.exists())//Nếu số điện thoại này có dữ liệu User thì sẽ chuyển vào trang Home
                         {
                             UserModel userModel = snapshot.getValue(UserModel.class);
                             userModel.setUid(snapshot.getKey());
-                            goToHomeActivity(userModel);
+                            goToHomeActivity(userModel);//Hàm chuyển vào trang Home
                         }
                         else
-                            showRegisterLayout();
+                            //Nâu chưa có đăng ký User thì chuyển sang trang đăng ký
+                            showRegisterLayout();//hàm chuyển sang trang đăng ký
                     }
 
                     @Override
@@ -130,12 +140,12 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void showRegisterLayout() {
+    private void showRegisterLayout() {//Hàm chuyển sang trang đăng ký
         startActivity(new Intent(MainActivity.this,RegisterActivity.class));
         finish();
     }
 
-    private void goToHomeActivity(UserModel userModel) {
+    private void goToHomeActivity(UserModel userModel) {//Hàm chuyển sang trang Home
         Common.currentUser=userModel;// IMPORTANT
         startActivity(new Intent(MainActivity.this,HomeActivity.class));
         finish();
@@ -144,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == LOGIN_REQUEST_CODE)
+        if(requestCode == LOGIN_REQUEST_CODE)//Kiểm tra mã Code
         {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if(resultCode == RESULT_OK)
@@ -152,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
             }
             else
-                Toast.makeText(this,"[ERROR]"+response.getError(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"[ERROR]"+response.getError(),Toast.LENGTH_SHORT).show();//Báo lổi nhập sai mã code
         }
     }
 }

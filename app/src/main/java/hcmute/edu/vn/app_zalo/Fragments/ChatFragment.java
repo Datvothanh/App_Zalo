@@ -56,12 +56,12 @@ public class ChatFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View itemView =  inflater.inflate(R.layout.chat_fragment, container, false);
         initView(itemView);
-        loadChatList();
+        loadChatList();//Hiện thị danh sách các phòng chat
         return itemView;
     }
 
     private void loadChatList() {
-        Query query = FirebaseDatabase.getInstance()
+        Query query = FirebaseDatabase.getInstance()//Lấy giữ liệu lần chat cuối cùng
                 .getReference()
                 .child(Common.CHAT_LIST_REFERENCE);
         FirebaseRecyclerOptions<ChatInfoModel> options = new FirebaseRecyclerOptions
@@ -95,9 +95,8 @@ public class ChatFragment extends Fragment {
                            .equals(model.getCreateId()) ? model.getFriendName() : model.getCreateName();
 
                    TextDrawable drawable = builder.build(displayName.substring(0,1),color);
+                   //Lấy các thông tin đưa vào view
                    holder.img_avatar.setImageDrawable(drawable);
-
-
                    holder.txt_name.setText(displayName);
                    holder.txt_last_message.setText(model.getLastMessage());
                    holder.txt_time.setText(simpleDateFormat.format(model.getLastUpdate()));

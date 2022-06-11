@@ -13,6 +13,7 @@ import butterknife.Unbinder;
 import hcmute.edu.vn.app_zalo.R;
 
 public class UserViewHolder extends RecyclerView.ViewHolder {
+    //Tạo các biến gán theo view
     @BindView(R.id.img_avatar)
     public ImageView img_avatar;
     @BindView(R.id.txt_name)
@@ -22,6 +23,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
 
     private Unbinder unbinder;
 
+    //Hàm để mình có thể tái sử dụng các xml item.
     public UserViewHolder(@NonNull View itemView) {
         super(itemView);
         unbinder = ButterKnife.bind(this , itemView);

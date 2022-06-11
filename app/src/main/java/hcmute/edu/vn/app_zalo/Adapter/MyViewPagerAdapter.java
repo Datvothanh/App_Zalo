@@ -16,7 +16,7 @@ public class MyViewPagerAdapter extends FragmentStateAdapter {
 
     @NonNull
     @Override
-    public Fragment createFragment(int position) {
+    public Fragment createFragment(int position) {//Thiết lập số thứ tự cho từng Fragemnt
         if(position == 0)
             return ChatFragment.getInstance();
         else
@@ -27,5 +27,5 @@ public class MyViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
         return 2;
-    }
+    }//Khai báo số lượng Fragment
 }

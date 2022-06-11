@@ -69,9 +69,9 @@ public class PeopleFragment extends Fragment {
 
             @NonNull
             @Override
-            public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {//Tạo hiển thị danh sách người
                 View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.layout_people,parent,false);
+                        .inflate(R.layout.layout_people,parent,false);//Lấy view layout_people
                 return new UserViewHolder(view);
             }
 

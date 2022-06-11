@@ -24,6 +24,7 @@ import hcmute.edu.vn.app_zalo.Model.UserModel;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    //Tạo các biến gán theo view
     @BindView(R.id.edt_first_name)
     TextInputEditText edt_first_name;
     @BindView(R.id.edt_last_name)
@@ -52,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         init();
-        setDefaultData();
+        setDefaultData();//Hàm lấy dữ liệu từ form đăng ký
     }
 
     private void setDefaultData() {
@@ -60,18 +61,18 @@ public class RegisterActivity extends AppCompatActivity {
         edt_phone.setText(user.getPhoneNumber());
         edt_phone.setEnabled(false);
 
-        edt_date_of_birth.setOnFocusChangeListener((v, hasFocus) -> {
+        edt_date_of_birth.setOnFocusChangeListener((v, hasFocus) -> {//Click hiện bảng chọn ngày tháng năm sinh
             if(hasFocus)
                 materialDatePicker.show(getSupportFragmentManager(),materialDatePicker.toString());
         });
 
         btn_register.setOnClickListener(v -> {
-            if(!isSelectBirthDate){
+            if(!isSelectBirthDate){//Kiểm tra xem có nhập ngày sinh hay không
                 Toast.makeText(this, "Please enter birthdate", Toast.LENGTH_SHORT);
                 return;
             }
-            UserModel userModel = new UserModel();
-
+            UserModel userModel = new UserModel();//Tạo mới UserModel
+            //Lấy các thông tin đã nhập trong form
             userModel.setFirstName(edt_first_name.getText().toString());
             userModel.setLastName(edt_last_name.getText().toString());
             userModel.setBio(edt_bio.getText().toString());
@@ -82,19 +83,19 @@ public class RegisterActivity extends AppCompatActivity {
             userRef.child(userModel.getUid())
                     .setValue(userModel)
                     .addOnFailureListener(e ->{
-                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();//Thông báo thất bại
                     })
-                    .addOnSuccessListener(aVoid ->{
-                        Toast.makeText(this, "Register success!", Toast.LENGTH_SHORT).show();
+                    .addOnSuccessListener(aVoid ->{//Thêm tài thông tin User cho số điện thoại đó
+                        Toast.makeText(this, "Register success!", Toast.LENGTH_SHORT).show();//Thông báo thành công
                         Common.currentUser = userModel;
-                        startActivity(new Intent(RegisterActivity.this,HomeActivity.class));
+                        startActivity(new Intent(RegisterActivity.this,HomeActivity.class));//Chuyển sang trang Home
                         finish();
                     });
         });
     }
 
     private void init(){
-        ButterKnife.bind(this);
+        ButterKnife.bind(this);//Sử dụng layout activity_register
         database = FirebaseDatabase.getInstance();
         userRef = database.getReference(Common.USER_REFERENCES);
         materialDatePicker.addOnPositiveButtonClickListener(selection ->  {
