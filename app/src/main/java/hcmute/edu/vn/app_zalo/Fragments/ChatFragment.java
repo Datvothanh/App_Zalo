@@ -2,6 +2,7 @@ package hcmute.edu.vn.app_zalo.Fragments;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,21 +15,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import hcmute.edu.vn.app_zalo.ChatActivity;
 import hcmute.edu.vn.app_zalo.Common.Common;
+import hcmute.edu.vn.app_zalo.Model.UserModel;
 import hcmute.edu.vn.app_zalo.ViewHolders.ChatInfoHolder;
 import hcmute.edu.vn.app_zalo.Model.ChatInfoModel;
 import hcmute.edu.vn.app_zalo.R;
@@ -105,7 +112,26 @@ public class ChatFragment extends Fragment {
 
                    //Event
                    holder.itemView.setOnClickListener(v -> {
-                       //Implement late
+                       //Den chat detail
+                       FirebaseDatabase.getInstance().getReference(Common.USER_REFERENCES)
+                               .child(FirebaseAuth.getInstance().getCurrentUser().getUid()
+                                       .equals(model.getCreateId()) ? model.getFriendId() : model.getCreateId())
+                               .addListenerForSingleValueEvent(new ValueEventListener() {
+                                   @Override
+                                   public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                       if(snapshot.exists()){
+                                           UserModel userModel = snapshot.getValue(UserModel.class);
+                                           Common.chatUser = userModel;
+                                           Common.chatUser.setUid(snapshot.getKey());
+                                           startActivity((new Intent(getContext(), ChatActivity.class)));
+                                       }
+                                   }
+
+                                   @Override
+                                   public void onCancelled(@NonNull DatabaseError error) {
+                                       Toast.makeText(getContext(), error.getMessage(),Toast.LENGTH_SHORT).show();
+                                   }
+                               });
                    });
 
                }

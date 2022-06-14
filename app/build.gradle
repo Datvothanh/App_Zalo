@@ -13,7 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-//        multiDexEnabled true
+       // multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -71,4 +71,6 @@ dependencies {
 
 //    //Multi Dex
 //    implementation 'com.android.support:multidex:1.0.3 '
+    //Firebase Storage
+    implementation('com.google.firebase:firebase-storage:20.0.1')
 }
