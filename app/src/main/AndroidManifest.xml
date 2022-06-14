@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App_Zalo">
         <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
@@ -27,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"/>
+        <activity android:name=".RegisterActivity" />
     </application>
 
 </manifest>

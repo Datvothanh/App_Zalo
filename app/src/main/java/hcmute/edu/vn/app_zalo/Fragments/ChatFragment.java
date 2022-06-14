@@ -63,12 +63,14 @@ public class ChatFragment extends Fragment {
     private void loadChatList() {
         Query query = FirebaseDatabase.getInstance()//Lấy giữ liệu lần chat cuối cùng
                 .getReference()
-                .child(Common.CHAT_LIST_REFERENCE);
+                .child(Common.CHAT_LIST_REFERENCE)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         FirebaseRecyclerOptions<ChatInfoModel> options = new FirebaseRecyclerOptions
                 .Builder<ChatInfoModel>()
                 .setQuery(query, ChatInfoModel.class)
                 .build();
         adapter = new FirebaseRecyclerAdapter<ChatInfoModel, ChatInfoHolder>(options) {
+
 
             @NonNull
             @Override
@@ -114,6 +116,9 @@ public class ChatFragment extends Fragment {
                }
             }
         };
+
+//        adapter.startListening();
+//        recycler_chat.setAdapter(adapter);
     }
 
     private void initView(View itemView) {

@@ -3,6 +3,7 @@ package hcmute.edu.vn.app_zalo.Fragments;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ import com.google.firebase.database.Query;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import hcmute.edu.vn.app_zalo.ChatActivity;
 import hcmute.edu.vn.app_zalo.Common.Common;
 import hcmute.edu.vn.app_zalo.Model.UserModel;
 import hcmute.edu.vn.app_zalo.R;
@@ -96,8 +98,9 @@ public class PeopleFragment extends Fragment {
 
                      //Event
                      holder.itemView.setOnClickListener(v -> {
-                         //Implement late;
-
+                         Common.chatUser = model;
+                         Common.chatUser.setUid(adapter.getRef(position).getKey());
+                         startActivity(new Intent(getContext(), ChatActivity.class));
                      });
                  }
                  else {
