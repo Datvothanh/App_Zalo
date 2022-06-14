@@ -19,7 +19,7 @@ public class ChatInfoHolder extends RecyclerView.ViewHolder {
     public ImageView img_avatar;
     @BindView(R.id.txt_name)
     public TextView txt_name;
-    @BindView(R.id.text_last_message)
+    @BindView(R.id.txt_last_message)
     public  TextView txt_last_message;
     @BindView(R.id.txt_time)
     public TextView txt_time;
