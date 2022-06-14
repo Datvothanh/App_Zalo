@@ -10,6 +10,7 @@
         <entry key="..\:/Projects/LapTrinhDiDong/App_Zalo/app/src/main/res/layout/layout_message_test_own.xml" value="0.33" />
         <entry key="..\:/Projects/LapTrinhDiDong/App_Zalo/app/src/main/res/layout/layout_message_text_friend.xml" value="0.25" />
         <entry key="..\:/Users/Asus/App_Zalo/app/src/main/res/drawable/tab_seclector.xml" value="0.147" />
+        <entry key="..\:/Users/Asus/App_Zalo/app/src/main/res/layout/activity_chat.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Asus/App_Zalo/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/Users/Asus/App_Zalo/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Asus/App_Zalo/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
@@ -17,6 +18,8 @@
         <entry key="..\:/Users/Asus/App_Zalo/app/src/main/res/layout/fragment_chat.xml" value="0.25" />
         <entry key="..\:/Users/Asus/App_Zalo/app/src/main/res/layout/fragment_people.xml" value="0.2359375" />
         <entry key="..\:/Users/Asus/App_Zalo/app/src/main/res/layout/layout_chat_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Asus/App_Zalo/app/src/main/res/layout/layout_message_text_friend.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Asus/App_Zalo/app/src/main/res/layout/layout_message_text_own.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Asus/App_Zalo/app/src/main/res/layout/layout_people.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Asus/App_Zalo/app/src/main/res/layout/people_fragment.xml" value="0.2359375" />
       </map>
