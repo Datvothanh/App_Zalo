@@ -1,11 +1,32 @@
 <resources>
-    <string name="app_name">App_Zalo</string>
-    <string name="bio">Bio</string>
-    <string name="dateofbirth">Date of birth</string>
-    <string name="phone">Phone</string>
-    <string name="sign_up_last_name">Last Name</string>
-    <string name="sign_up_first_name">First Name</string>
-    <string name="register_text">Register</string>
+    <string name="app_name">Login Template</string>
+    <string name="hint_username">Họ và tên</string>
+    <string name="hint_password">Ngày sinh</string>
+    <string name="button_sign_in">Đăng kí</string>
+    <string name="button_sign_up">Đăng nhập</string>
+    <string name="button_send">Gửi</string>
+    <string name="text_forgot_password">Forgot password?</string>
+    <string name="text_signin_message">Hello, sign in to your account</string>
+    <string name="text_signin_social_media">Or Sign in using social media</string>
+    <string name="text_signup_social_media">Or Sign up using social media</string>
+    <string name="text_signin_signup">Don\'t have an account? <b>Sign up</b></string>
+    <string name="text_signup_terms">By signing up, you agree to our <b>terms and conditions</b></string>
+    <string name="text_signup_message">Hello, let\'s set up your account</string>
+
+    <string name="text_forgot_password_title">Forgot password? No worries</string>
+    <string name="text_forgot_password_message">We will send you a link to reset your password</string>
+
+    <string name="hint_email">Tên</string>
+    <string name="hint_phone">Số điện thoại</string>
+    <string name="hint_confirm_password">Xác nhận đăng kí</string>
+
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

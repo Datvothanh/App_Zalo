@@ -11,22 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tabDots"
+        android:background="@drawable/bg_gradient"
+
         android:orientation="horizontal" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabDots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary"
         android:foregroundTint="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabTextColor="@color/default_text_color"
-        app:tabIndicatorColor="@android:color/white"
-        app:tabSelectedTextColor="@android:color/white"
-        app:tabMaxWidth="0dp"
+        app:tabBackground="@drawable/tab_selector"
         app:tabGravity="fill"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabMaxWidth="0dp"
         app:tabMode="fixed"
-        app:tabBackground="@drawable/tab_selector"/>
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabTextColor="@color/cardview_dark_background" />
 
 
 </RelativeLayout>
