@@ -65,9 +65,11 @@ import hcmute.edu.vn.app_zalo.ViewHolders.ChatTextReceiverHolder;
 
 public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFirebaseListener, IFirebaseLoadFailed {
 
+    //code để xác định hành động đang thực hiện
     private static final int MY_CAMERA_REQUEST_CODE = 7373;
     private static final int MY_RESULT_LOAD_IMAGE = 7374;
 
+    //biến đại diện cho view
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.img_preview)
@@ -87,28 +89,28 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
     @BindView(R.id.txt_name)
     TextView txt_name;
 
-    FirebaseDatabase database;
-    DatabaseReference chatRef, offsetRef;
-    ILoadTimeFromFirebaseListener listener;
+    FirebaseDatabase database; //biến dại diện cho Firebase Realtime Database
+    DatabaseReference chatRef, offsetRef; //biến trỏ dữ liệu
+    ILoadTimeFromFirebaseListener listener; //thực thi code khi có event xảy ra
     IFirebaseLoadFailed errorListener;
 
-    FirebaseRecyclerAdapter<ChatMessageModel, RecyclerView.ViewHolder> adapter;
+    FirebaseRecyclerAdapter<ChatMessageModel, RecyclerView.ViewHolder> adapter; //kết nối database và view
     FirebaseRecyclerOptions<ChatMessageModel> options;
     //2 ChatMessageModel. 1 cho nguoi gui, 1 cho nguoi nhan
 
-    StorageReference storageReference;
+    StorageReference storageReference; //biến trỏ đến vị trí FirebaseStorage, dùng để đọc ghi dữ liệu
     Uri fileUri;
     LinearLayoutManager layoutManager;
 
     @OnClick(R.id.img_image)
-    void onSelectImageClick(){
+    void onSelectImageClick(){ //khi nhấn vào nút chọn hình ảnh
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, MY_RESULT_LOAD_IMAGE);
     }
 
     @OnClick(R.id.img_camera)
-    void onCaptureImageClick(){
+    void onCaptureImageClick(){ //khi nhấn vào nút chụp ảnh
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "New Picture");
         values.put(MediaStore.Images.Media.DESCRIPTION, "From your camera");
@@ -120,11 +122,12 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
         startActivityForResult(intent, MY_CAMERA_REQUEST_CODE);
     }
 
-    @Override
+
+    @Override //khi hoàn thành hành động
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == MY_CAMERA_REQUEST_CODE){
+        if (requestCode == MY_CAMERA_REQUEST_CODE){ //chọn ảnh
             if (resultCode == RESULT_OK){
                 try {
                     Bitmap thumbnail = MediaStore.Images.Media
@@ -141,7 +144,7 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
                 }
             }
         }
-        else if (requestCode == MY_RESULT_LOAD_IMAGE){
+        else if (requestCode == MY_RESULT_LOAD_IMAGE){ //chụp ảnh
             if (resultCode == RESULT_OK){
                 try {
                     final Uri imageUri = data.getData();
@@ -162,13 +165,13 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
     }
 
     @OnClick(R.id.img_send)
-    void onSubmitChatClick(){
+    void onSubmitChatClick(){ //khi gửi tin nhắn
         offsetRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) { //khi cap nhat data
                 long offset = snapshot.getValue(Long.class);
                 long estimateedServerTimeInMs = System.currentTimeMillis() + offset;
-                listener.onLoadOnlyTimeSuccess(estimateedServerTimeInMs); //lay thoi gian tu Firebase
+                listener.onLoadOnlyTimeSuccess(estimateedServerTimeInMs); //tai thanh cong, lay thoi gian tu Firebase
             }
 
             @Override
@@ -203,12 +206,12 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) { //khi nhan vao tin nhan
+    protected void onCreate(Bundle savedInstanceState) { //khi nhấn vào tin nhắn
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_chat); //chuyển sang activity chat
 
-        initViews();  //tao o chua tin nhan
-        loadChatContent(); //load noi dung
+        initViews();  //khởi tạo view chat
+        loadChatContent(); //load nội dung
     }
 
     //Load noi dung chat
@@ -224,7 +227,7 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
                 } else return !adapter.getItem(position).isPicture() ? 2 : 3; //Tin nhan cua nguoi khac
 
             }
-
+            //cập nhật nội dung mới cho holder cũ
             @Override
             protected void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull ChatMessageModel model) {
                 if (holder instanceof ChatTextHolder) { //neu tin nhan la cua ban than
@@ -297,7 +300,7 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
             }
         };
 
-        //Tu dong cuon xuong khi nhan tin nhan moi
+        //Tu dong cuon xuong khi co tin nhan moi
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -317,8 +320,8 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
     private void initViews() {
         listener = this;
         errorListener = this;
-        database = FirebaseDatabase.getInstance();
-        chatRef = database.getReference(Common.CHAT_REFERENCE);
+        database = FirebaseDatabase.getInstance(); //biến đại diện cho database
+        chatRef = database.getReference(Common.CHAT_REFERENCE); //dùng để đọc ghi dữ liệu chat
 
         offsetRef = database.getReference(".info/serverTimeOffset");
 
@@ -352,7 +355,7 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
         });
     }
 
-    @Override
+    @Override //tải tin nhắn thành công, lấy thời gian từ firebase
     public void onLoadOnlyTimeSuccess(long estimateTimeInMs) {
         ChatMessageModel chatMessageModel = new ChatMessageModel();
         chatMessageModel.setName(Common.getName(Common.currentUser));
@@ -366,10 +369,9 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
         }
         else
             uploadPictureToFirebase(fileUri, chatMessageModel,estimateTimeInMs);
-
-
     }
 
+    //tải ảnh lên firebase
     private void uploadPictureToFirebase(Uri fileUri, ChatMessageModel chatMessageModel, long estimateTimeInMs) {
         AlertDialog dialog = new AlertDialog.Builder(ChatActivity.this)
                 .setCancelable(false)
@@ -377,8 +379,8 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
                 .create();
         dialog.show();
 
-        String filename = Common.getFilename(getContentResolver(), fileUri);
-        String path = new StringBuilder(Common.chatUser.getUid())
+        String filename = Common.getFilename(getContentResolver(), fileUri); //biến tên file hình ảnh
+        String path = new StringBuilder(Common.chatUser.getUid()) //biến đường dẫn hình ảnh
                 .append("/")
                 .append(filename)
                 .toString();
@@ -407,17 +409,17 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
         });
     }
 
-    //Submit len firebase
+    //đưa chat lên firebase
     private void submitChatToFirebase(ChatMessageModel chatMessageModel, boolean isPicture, long estimateTimeInMs) {
         chatRef.child(Common.generateChatRoomId(Common.chatUser.getUid(),
                         FirebaseAuth.getInstance().getCurrentUser().getUid()))
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists())
-                            appendChat(chatMessageModel, isPicture, estimateTimeInMs);
-                        else
-                            createChat(chatMessageModel, isPicture, estimateTimeInMs);
+                        if (snapshot.exists()) //nếu đã có tin nhắn từ trước
+                            appendChat(chatMessageModel, isPicture, estimateTimeInMs); //thêm tin nhắn mới
+                        else //chưa nhắn tin bao giờ
+                            createChat(chatMessageModel, isPicture, estimateTimeInMs); //tạo tin nhắn mới
                     }
 
                     @Override
@@ -500,6 +502,7 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
                 });
     }
 
+    //thêm tin nhắn mới
     private void appendChat(ChatMessageModel chatMessageModel, boolean isPicture, long estimateTimeInMs) {
         Map<String, Object> update_data = new HashMap<>();
         update_data.put("lastUpdate", estimateTimeInMs);

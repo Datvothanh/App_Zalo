@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import hcmute.edu.vn.app_zalo.R;
 
+
 public class ChatPictureHolder extends RecyclerView.ViewHolder {
     private Unbinder unbinder;
 
