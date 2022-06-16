@@ -55,8 +55,10 @@ public class HomeActivity extends AppCompatActivity {
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
            if(position == 0)//Trang đầu
                tab.setText("chat");//Fragment chat
-           else // Trang kế
+           else if (position == 1)// Trang kế
                tab.setText("People");//Fragment People
+           else
+               tab.setText("Profile");
 
         }).attach();
     }
