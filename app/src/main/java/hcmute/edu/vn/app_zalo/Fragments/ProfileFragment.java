@@ -70,11 +70,11 @@ public class ProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View itemView = inflater.inflate(R.layout.profile_fragment, container, false);
         initView(itemView);
-        setUserInformation();
+        setProfile();
         return itemView;
     }
 
-    private void setUserInformation() {
+    private void setProfile() {//Hiển thị Profile
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
                 .child(Common.USER_REFERENCES);//Lấy dữ liệu từ "People"
