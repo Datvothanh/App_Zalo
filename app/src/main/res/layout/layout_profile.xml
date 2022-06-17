@@ -20,7 +20,8 @@
         android:padding="10dp"
         android:layout_marginTop="30dp"
         android:id="@+id/profile_edt_first_name"
-        android:hint="Tên"/>
+        android:hint="Tên"
+        android:textColor="@color/profileText"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -28,7 +29,8 @@
         android:padding="10dp"
         android:layout_marginTop="30dp"
         android:id="@+id/profile_edt_last_name"
-        android:hint="Họ"/>
+        android:hint="Họ"
+        android:textColor="@color/profileText"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -36,7 +38,8 @@
         android:padding="10dp"
         android:layout_marginTop="30dp"
         android:id="@+id/profile_edt_phone"
-        android:hint="SĐT"/>
+        android:hint="SĐT"
+        android:textColor="@color/profileText"/>
 
 
     <TextView
@@ -45,7 +48,8 @@
         android:padding="10dp"
         android:layout_marginTop="30dp"
         android:id="@+id/profile_edt_full_bio"
-        android:hint="Trạng thái"/>
+        android:hint="Trạng thái"
+        android:textColor="@color/profileText"/>
 
     <Button
         android:layout_width="match_parent"
