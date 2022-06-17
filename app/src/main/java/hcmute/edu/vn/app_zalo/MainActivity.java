@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         //Ngừng xác thực khi đã đăng nhập
-        super.onStop();
         if(firebaseAuth != null && listener != null)
             firebaseAuth.removeAuthStateListener(listener);
         super.onStop();

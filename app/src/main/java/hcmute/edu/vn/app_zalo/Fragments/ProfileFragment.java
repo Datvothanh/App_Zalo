@@ -46,6 +46,7 @@ import hcmute.edu.vn.app_zalo.MainActivity;
 import hcmute.edu.vn.app_zalo.Model.ChatInfoModel;
 import hcmute.edu.vn.app_zalo.Model.UserModel;
 import hcmute.edu.vn.app_zalo.R;
+import hcmute.edu.vn.app_zalo.SlashScreenActivity;
 import hcmute.edu.vn.app_zalo.ViewHolders.ProfileIHolder;
 import hcmute.edu.vn.app_zalo.ViewHolders.UserViewHolder;
 
@@ -112,7 +113,7 @@ public class ProfileFragment extends Fragment {
                     holder.profile_edt_phone.setText("SĐT: "+model.getPhone());
                     holder.button_logout.setOnClickListener(v -> {//Sự kiện nút bấm đăng xuát
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(getContext(), MainActivity.class));
+                        startActivity(new Intent(getContext(), SlashScreenActivity.class));
                     });
 
                 }
