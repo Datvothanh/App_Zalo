@@ -15,14 +15,14 @@ import hcmute.edu.vn.app_zalo.R;
 public class ChatPictureReceiverHolder extends RecyclerView.ViewHolder {
 
     private Unbinder unbinder;
-
+    //Tạo các biến gán theo view
     @BindView(R.id.txt_time)
     public TextView txt_time;
     @BindView(R.id.txt_chat_message)
     public TextView txt_chat_message;
     @BindView(R.id.img_preview)
     public ImageView img_preview;
-
+    //Hàm để mình có thể tái sử dụng các xml item.
     public ChatPictureReceiverHolder(@NonNull View itemView) {
         super(itemView);
         unbinder = ButterKnife.bind(this, itemView);

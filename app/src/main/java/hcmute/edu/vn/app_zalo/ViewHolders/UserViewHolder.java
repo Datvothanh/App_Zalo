@@ -20,9 +20,7 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     public TextView txt_name;
     @BindView(R.id.txt_bio)
     public TextView txt_bio;
-
     private Unbinder unbinder;
-
     //Hàm để mình có thể tái sử dụng các xml item.
     public UserViewHolder(@NonNull View itemView) {
         super(itemView);

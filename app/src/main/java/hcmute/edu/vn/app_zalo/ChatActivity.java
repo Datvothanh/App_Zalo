@@ -2,6 +2,7 @@ package hcmute.edu.vn.app_zalo;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -14,6 +15,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.format.DateUtils;
@@ -317,7 +319,7 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
         });
     }
 
-    //Tao o chua noi dung chat
+    //Tạo ô chứa nội dung chat
     private void initViews() {
         listener = this;
         errorListener = this;
@@ -356,6 +358,7 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override //tải tin nhắn thành công, lấy thời gian từ firebase
     public void onLoadOnlyTimeSuccess(long estimateTimeInMs) {
         ChatMessageModel chatMessageModel = new ChatMessageModel();
@@ -373,6 +376,7 @@ public class ChatActivity extends AppCompatActivity implements ILoadTimeFromFire
     }
 
     //tải ảnh lên firebase
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void uploadPictureToFirebase(Uri fileUri, ChatMessageModel chatMessageModel, long estimateTimeInMs) {
         AlertDialog dialog = new AlertDialog.Builder(ChatActivity.this)
                 .setCancelable(false)

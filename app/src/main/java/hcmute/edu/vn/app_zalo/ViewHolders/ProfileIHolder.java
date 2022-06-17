@@ -29,8 +29,8 @@ public class ProfileIHolder extends RecyclerView.ViewHolder {
     public TextView profile_edt_phone;
     @BindView(R.id.btn_logout_profile)
     public Button button_logout;
-
     private Unbinder unbinder;
+    //Hàm để mình có thể tái sử dụng các xml item.
     public ProfileIHolder(@NonNull View itemView) {
         super(itemView);
         unbinder = ButterKnife.bind(this , itemView);

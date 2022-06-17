@@ -36,15 +36,16 @@ import hcmute.edu.vn.app_zalo.R;
 import hcmute.edu.vn.app_zalo.ViewHolders.UserViewHolder;
 
 public class PeopleFragment extends Fragment {
+    //Biến ánh xạ
     @BindView(R.id.recycler_people)
     RecyclerView recycler_people;
-    FirebaseRecyclerAdapter adapter;
+    FirebaseRecyclerAdapter adapter;//Biến chuyển đội
 
     private Unbinder unbinder;
 
     private PeopleViewModel mViewModel;
 
-    static PeopleFragment instance;
+    static PeopleFragment instance;//thực thi code khi có event xảy ra
 
     public static PeopleFragment getInstance(){
         return instance == null ? new PeopleFragment(): instance;
@@ -55,14 +56,14 @@ public class PeopleFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View itemView = inflater.inflate(R.layout.people_fragment, container, false);
         initView(itemView);
-        loadPeople();
+        loadPeople();//Lấy danh sách những người dùng app này
         return itemView;
     }
 
     private void loadPeople() {
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
-                .child(Common.USER_REFERENCES);
+                .child(Common.USER_REFERENCES);//Lấy dữ liệu từ "People"
         FirebaseRecyclerOptions<UserModel> options = new FirebaseRecyclerOptions
                 .Builder<UserModel>()
                 .setQuery(query, UserModel.class)
@@ -79,9 +80,9 @@ public class PeopleFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull UserModel model) {
-                 if(!adapter.getRef(position).getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                 if(!adapter.getRef(position).getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))//Lấy tất cả User trừ người đang đăng nhập
                  {
-                     //Hide yourself
+                     //Lấy dữ liệu
                      ColorGenerator generator = ColorGenerator.MATERIAL;
                      int color = generator.getColor(FirebaseAuth.getInstance().getCurrentUser().getUid());
                      TextDrawable.IBuilder builder = TextDrawable.builder()
@@ -96,7 +97,7 @@ public class PeopleFragment extends Fragment {
                      holder.txt_name.setText(stringBuilder.toString());
                      holder.txt_bio.setText(model.getBio());
 
-                     //Event
+                     //Sự kiện click sự kiện chuyển sang phòng chat
                      holder.itemView.setOnClickListener(v -> {
                          Common.chatUser = model;
                          Common.chatUser.setUid(adapter.getRef(position).getKey());
