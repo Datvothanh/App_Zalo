@@ -42,9 +42,9 @@ import hcmute.edu.vn.app_zalo.R;
 
 public class ChatFragment extends Fragment {
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
-    FirebaseRecyclerAdapter adapter;
-
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");//định dạng kiểu của ngày tháng năm
+    FirebaseRecyclerAdapter adapter; //Biến huyển đổi
+    //Ánh xạ chứa danh sách phòng chát
     @BindView(R.id.recycler_chat)
     RecyclerView recycler_chat;
 
@@ -67,17 +67,16 @@ public class ChatFragment extends Fragment {
         return itemView;
     }
 
-    private void loadChatList() {
+    private void loadChatList() {//Hàm hien thi danh sách các phòng nhắn tin
         Query query = FirebaseDatabase.getInstance()//Lấy giữ liệu lần chat cuối cùng
                 .getReference()
-                .child(Common.CHAT_LIST_REFERENCE)
+                .child(Common.CHAT_LIST_REFERENCE)//Lấy dữ liệu từ "ChatList"
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         FirebaseRecyclerOptions<ChatInfoModel> options = new FirebaseRecyclerOptions
                 .Builder<ChatInfoModel>()
                 .setQuery(query, ChatInfoModel.class)
                 .build();
         adapter = new FirebaseRecyclerAdapter<ChatInfoModel, ChatInfoHolder>(options) {
-
 
             @NonNull
             @Override
@@ -92,7 +91,6 @@ public class ChatFragment extends Fragment {
                if(!adapter.getRef((position))
                    .getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
                {
-                   //Hide yourself
                    ColorGenerator generator = ColorGenerator.MATERIAL;
                    int color = generator.getColor(FirebaseAuth.getInstance().getCurrentUser().getUid());
                    TextDrawable.IBuilder builder = TextDrawable.builder()
@@ -110,7 +108,6 @@ public class ChatFragment extends Fragment {
                    holder.txt_last_message.setText(model.getLastMessage());
                    holder.txt_time.setText(simpleDateFormat.format(model.getLastUpdate()));
 
-                   //Event
                    holder.itemView.setOnClickListener(v -> {
                        //Den chat detail
                        FirebaseDatabase.getInstance().getReference(Common.USER_REFERENCES)
@@ -136,7 +133,6 @@ public class ChatFragment extends Fragment {
 
                }
                else {
-                   //If equal key - hide your self
                    holder.itemView.setVisibility(View.GONE);
                    holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0 , 0));
                }

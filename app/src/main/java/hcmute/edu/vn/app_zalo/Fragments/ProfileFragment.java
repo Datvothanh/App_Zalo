@@ -50,16 +50,16 @@ import hcmute.edu.vn.app_zalo.ViewHolders.ProfileIHolder;
 import hcmute.edu.vn.app_zalo.ViewHolders.UserViewHolder;
 
 public class ProfileFragment extends Fragment {
-
+    //Biến ánh xạ
     @BindView(R.id.recycler_profile)
     RecyclerView recycler_profile;
-    FirebaseRecyclerAdapter adapter;
-    private Button btnLogout;
+    FirebaseRecyclerAdapter adapter; //Biến chuyển đổi
+    private Button btnLogout; //Biến nut 1bam61
     private Unbinder unbinder;
 
     private ProfileViewModel mViewModel;
 
-    static ProfileFragment instance;
+    static ProfileFragment instance;//thực thi code khi có event xảy ra;
 
     public static ProfileFragment getInstance() {
         return instance == null ? new ProfileFragment(): instance;
@@ -77,7 +77,7 @@ public class ProfileFragment extends Fragment {
     private void setUserInformation() {
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
-                .child(Common.USER_REFERENCES);
+                .child(Common.USER_REFERENCES);//Lấy dữ liệu từ "People"
         FirebaseRecyclerOptions<UserModel> options = new FirebaseRecyclerOptions
                 .Builder<UserModel>()
                 .setQuery(query, UserModel.class)
@@ -94,9 +94,9 @@ public class ProfileFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull ProfileIHolder holder, int position, @NonNull UserModel model) {
-                if(adapter.getRef(position).getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                if(adapter.getRef(position).getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))//Lấy dữ liệu của người đang đăng nhập
                 {
-                    //Hide yourself
+                    //Lấy dữ liệu
                     ColorGenerator generator = ColorGenerator.MATERIAL;
                     int color = generator.getColor(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     TextDrawable.IBuilder builder = TextDrawable.builder()
@@ -106,11 +106,11 @@ public class ProfileFragment extends Fragment {
                             .round();
                     TextDrawable drawable = builder.build(model.getFirstName().substring(0,1),color);
                     holder.profile_img_avatar.setImageDrawable(drawable);
-                    holder.profile_first_name.setText(model.getFirstName());
-                    holder.profile_second_name.setText(model.getLastName());
-                    holder.profile_edt_bio.setText(model.getBio());
-                    holder.profile_edt_phone.setText(model.getPhone());
-                    holder.button_logout.setOnClickListener(v -> {
+                    holder.profile_first_name.setText("Tên: "+model.getFirstName());
+                    holder.profile_second_name.setText("Họ: "+model.getLastName());
+                    holder.profile_edt_bio.setText("Trạng thái: "+model.getBio());
+                    holder.profile_edt_phone.setText("SĐT: "+model.getPhone());
+                    holder.button_logout.setOnClickListener(v -> {//Sự kiện nút bấm đăng xuát
                         FirebaseAuth.getInstance().signOut();
                         startActivity(new Intent(getContext(), MainActivity.class));
                     });

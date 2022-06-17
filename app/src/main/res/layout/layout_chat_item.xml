@@ -25,18 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/userpic" />
-        <TextView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="-2dp"
-            android:gravity="center"
-            android:text="3"
-            android:textSize="12sp"
-            android:textColor="@color/colorAccent"
-            android:textAppearance="@style/Light"
-            android:background="@drawable/bg_unread"/>
     </RelativeLayout>
 
     <LinearLayout

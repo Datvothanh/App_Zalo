@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -31,12 +32,12 @@ import hcmute.edu.vn.app_zalo.Common.Common;
 import hcmute.edu.vn.app_zalo.Model.UserModel;
 
 public class MainActivity extends AppCompatActivity {
-    private final static int LOGIN_REQUEST_CODE = 7171;
-    private List<AuthUI.IdpConfig> providers;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener listener;
-    FirebaseDatabase database;
-    DatabaseReference userRef;
+    private final static int LOGIN_REQUEST_CODE = 7171;//Mã code yêu cầu xác minh
+    private List<AuthUI.IdpConfig> providers;//Quy trình xác thực
+    private FirebaseAuth firebaseAuth;//Công cụ cho việc đăng nhập
+    private FirebaseAuth.AuthStateListener listener;//Được gọi khi có sự thay đổi trong trạng thái xác thực
+    FirebaseDatabase database;//Điểm vào để truy cập cơ sở dữ liệu Firebase
+    DatabaseReference userRef;//Tham chiếu đại diện cho một vị trí trong cơ sở dữ liệu
 
     @Override
     protected void onStart() {
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        //Ngừng xác thực
+        //Ngừng xác thực khi đã đăng nhập
         super.onStop();
         if(firebaseAuth != null && listener != null)
             firebaseAuth.removeAuthStateListener(listener);
@@ -57,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        init();//Hàm đăng nhập
+        login();//Hàm đăng nhập
     }
 
-    private void init(){
+    private void login(){
         //Tạo mới một quy trình đăng nhập
         providers = Arrays.asList(
                 new AuthUI.IdpConfig.PhoneBuilder().build()
@@ -82,22 +83,22 @@ public class MainActivity extends AppCompatActivity {
                     )).withListener(new MultiplePermissionsListener() {
 
                 @Override
-                public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
-                    //Kiểm tra xem đã cho truy cập các chức năng chưa
-                    if(multiplePermissionsReport.areAllPermissionsGranted())//Cho truy cập rồi thì xét xem số điện thoại đó có thật không
+                public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {//Kiểm tra đăng nhập chưa
+
+                    if(multiplePermissionsReport.areAllPermissionsGranted())//Kiểm tra xem đã cho truy cập các chức năng chưa)
                     {
                         FirebaseUser user=myFirebaseAuth.getCurrentUser();
                         if(user!=null)
                         {
-                            //Có thật thì kiểm tra xem số điện thoại này có thông tin User chưa
+                            //kiểm tra xem số điện thoại này có thông tin User chưa
                             checkUserFromFirebase();
                         }
                         else
-                            //Không có thật thì quay lại trang nhập số điện thoại
+                            //hiện trang đăng nhập sdt
                             showLoginLayout();
                     }
                     else
-                        //Chưa thì thông báo phải chấp nhận
+                        //Chưa thì thông báo phải cho phép truy cập
                         Toast.makeText(MainActivity.this, "Plese enable all permission", Toast.LENGTH_SHORT).show();
                 }
 
@@ -109,14 +110,14 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    private void showLoginLayout() {//Show lại trang đăng nhập
+    private void showLoginLayout() {//Show trang đăng nhập
         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
                 .setIsSmartLockEnabled(false)
                 .setTheme(R.style.LoginTheme)
                 .setAvailableProviders(providers).build(),LOGIN_REQUEST_CODE);
     }
 
-    private void checkUserFromFirebase() {
+    private void checkUserFromFirebase() {//Kiểm tra thông tin sdt từ Firebase
         userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
