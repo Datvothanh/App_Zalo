@@ -1,8 +1,8 @@
 package hcmute.edu.vn.app_zalo.Model;
 
 public class ChatInfoModel {
-    private String createName,lastMessage,createId,friendId,friendName;
-    private long createDate , lastUpdate;
+    private String createName,lastMessage,createId,friendId,friendName;//create: tên phòng chat , lastMessage: tin nhắn cuối cùng , createId: tạo id phòng chat , friendId: id của người nhắn với mình, friend: tên người nhắn với mình
+    private long createDate , lastUpdate; //createDate: ngày gửi , lastUpdate: thời gian gửi cách bao lâu
 
     public ChatInfoModel(){
 

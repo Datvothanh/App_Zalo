@@ -1,9 +1,9 @@
 package hcmute.edu.vn.app_zalo.Model;
 
 public class ChatMessageModel {
-    private String uid, name, content, senderId, pictureLink;
-    private boolean picture;
-    private Long timeStamp;
+    private String uid, name, content, senderId, pictureLink;//uid: Mã tin nhắn , name : tên tin nhắn , content:nội dunh chat , senderId: id người gửi , pictureLink: link ảnh
+    private boolean picture; //Biến đúng sai của hình ảnh
+    private Long timeStamp;//Biến tính thời gian gửi
 
     public ChatMessageModel(){
 

@@ -1,9 +1,9 @@
 package hcmute.edu.vn.app_zalo.Model;
 
 public class UserModel {
-    private String uid,firstName,lastName,phone,bio;
-    private double birthDate;
-    private boolean gender;
+    private String uid,firstName,lastName,phone,bio;//uid:mã tài khoản, firstName: tên đầu , lastName:tên cuối , phone: số điện thoại, bio: trạng thái
+    private double birthDate; //Ngày tháng năm sinh
+    private boolean gender; //Biến kiểm tra
 
     public UserModel(){
         birthDate=System.currentTimeMillis();
